@@ -25,6 +25,7 @@ body {
   width: 200px;
   border: 10px solid black;
   border-radius: 20%;
+  box-shadow: 0 0 5px rgb(155, 152, 152);
 }
 
 .game-over {

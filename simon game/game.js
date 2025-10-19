@@ -1,102 +1,49 @@
+//array for store random color pattern generated
+var randomColorPattern = [];
 
-//array for store 4 button colors
-var buttonColors = ["red", "blue", "green", "yellow"];
+//array for store color pattern entered by the user
+var userColorPattern = [];
 
-//array for store user cloicked color pattern
-var userClickedPattern = [];
+//random color pattern generator
+for(i =0;i<4;i++){
+    var randomNumber = Math.floor(Math.random() * 4);
 
+    if(randomNumber==0){
+        $("#green").addClass("pressed");
+    setTimeout(function(){
+        $("#green").removeClass("pressed");
+    },2000);
+    }
+    else if(randomNumber==1){
+        $("#red").addClass("pressed");
+    setTimeout(function(){
+        $("#red").removeClass("pressed");
+    },2000);
+    }
+    else if(randomNumber==2){
+        $("#yellow").addClass("pressed");
+    setTimeout(function(){
+        $("#yellow").removeClass("pressed");
+    },2000);
+    }
+    else{
+        $("#blue").addClass("pressed");
+    setTimeout(function(){
+        $("#blue").removeClass("pressed");
+    },2000);
+    }
 
-//function for generate random number
-function nextSequence(){
-    var randNumber = Math.random()*4;
-    var randomNumber = Math.floor(randNumber);
-    return randomNumber;
-}
-
-
-//array for store the generated random game pattern colors
-var gamePattern = [];
-
-
-//push the random color pattern to gamepattern array
-var randomChosenColour = buttonColors[nextSequence()];
-gamePattern.push(randomChosenColour);   
- 
-
-//flash for random color pattern..not completed
-$("div #"+randomChosenColour).css({opacity : "20%"});
-
-setTimeout(function(){
-    $("div #"+randomChosenColour).css({opacity : "100%"});
-
-},200);
-
-
-
-
-//sounds for showing the pattern still not work
-
-var audioBlue = new Audio('sounds/blue.mp3');
-var audioGreen = new Audio('sounds/green.mp3');
-var audioRed = new Audio('sounds/red.mp3');
-var audioYellow = new Audio('sounds/yellow.mp3');
-var audioWrong = new Audio('sounds/wrong.mp3');
-
-
-
-/*if(randomChosenColour=="blue"){
-    audioBlue.play();
-}
-else if(randomChosenColour=="green"){
-    audioGreen.play();
-}
-else if(randomChosenColour=="red"){
-    audioRed.play();
-}
-else if(randomChosenColour=="yellow"){
-    audioYellow.play();
-}
-else{
-    audioWrong.play();
-}*/
-
-// end of sounds part
-
-
-
-
-//push the user clicked color pattern to array called userClicked pattern
-
-$(".btn").click(function(){
-    var userChosenColour = $(this).attr("id");
-    userClickedPattern.push(userChosenColour);
    
-     if(userChosenColour=="blue"){
-    audioBlue.play();
-}
-else if(userChosenColour=="green"){
-    audioGreen.play();
-}
-else if(userChosenColour=="red"){
-    audioRed.play();
-}
-else if(userChosenColour=="yellow"){
-    audioYellow.play();
-}
-else{
-    audioWrong.play();
 }
 
+
+
+
+
+
+//starting key press , sound and heading change as level
+$(document).on("keypress", function(){
+    var gameStartingSound = new Audio("sounds/yellow.mp3");
+    gameStartingSound.play();
+    $("h1").html("Level 01");
 });
-
-
-
-
-
-
-
-   
-
-
-
-
