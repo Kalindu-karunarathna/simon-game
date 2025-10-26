@@ -1,13 +1,30 @@
 body {
   text-align: center;
-  background-color: #011F3F;
+  background: linear-gradient(145deg, #ffd1d1db, #befff5d4);
 }
+
 
 #level-title {
   font-family: 'Press Start 2P', cursive;
   font-size: 3rem;
-  margin:  5%;
-  color: #FEF2BF;
+  margin: 5%;
+  color: #f5a25c; /* base jelly color */
+  
+  /* 3D jelly effect using multiple text-shadows */
+  text-shadow:
+    2px 2px 0 #e08c4c,   /* bottom right darker */
+    4px 4px 0 #d77d22,   /* more depth */
+    6px 6px 0 #c66e1a,   /* even deeper shadow */
+    0 0 10px rgba(255,255,255,0.3), /* soft glow highlight */
+    0 0 20px rgba(255,255,255,0.2); /* extra subtle glow */
+  
+  /* Optional: gradient text using background-clip */
+  background: linear-gradient(145deg, #f5a25c, #f28b8b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* Slight scale for jelly bounce */
+  transition: transform 0.2s, text-shadow 0.2s;
 }
 
 .container {
@@ -18,7 +35,7 @@ body {
 
 }
 
-.btn {
+/*.btn {
   margin: 25px;
   display: inline-block;
   height: 200px;
@@ -26,14 +43,61 @@ body {
   border: 10px solid black;
   border-radius: 20%;
   box-shadow: 0 0 5px rgb(155, 152, 152);
+}*/
+
+
+
+.btn {
+  margin: 25px;
+  display: inline-block;
+  height: 200px;
+  width: 200px;
+  
+  border-radius: 20%;
+  box-shadow:
+    inset 0 15px 25px rgba(255,255,255,0.6),   /* stronger inner highlight */
+    inset 0 -10px 20px rgba(0,0,0,0.3),        /* deeper inner shadow bottom */
+    0 12px 30px rgba(0,0,0,0.35),              /* bigger outer shadow */
+    0 6px 15px rgba(0,0,0,0.2);                  /* softer secondary shadow */
+
+  transition: transform 0.2s, box-shadow 0.2s;
+  
+  /* Jelly gradient colors (soft pastel look) */
+  background: linear-gradient(145deg, #f3a3a3, #f3c1d1);
+  
+  /* Smooth transition for click/hover */
+  transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+  
+  cursor: pointer;
 }
+
+.btn:active {
+  transform: scale(0.9) rotate(-3deg);
+  box-shadow:
+    inset 0 5px 8px rgba(255,255,255,0.3),
+    inset 0 -2px 5px rgba(0,0,0,0.2),
+    0 4px 10px rgba(0,0,0,0.2),
+    0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Hover effect (slightly lift) */
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow:
+    inset 0 10px 15px rgba(255,255,255,0.5),
+    inset 0 -5px 10px rgba(0,0,0,0.2),
+    0 10px 25px rgba(0,0,0,0.3),
+    0 5px 10px rgba(0,0,0,0.15);
+}
+
+
 
 .game-over {
   background-color: red;
   opacity: 0.8;
 }
 
-.red {
+/*.red {
   background-color: red;
 }
 
@@ -47,9 +111,50 @@ body {
 
 .yellow {
   background-color: yellow;
+}*/
+
+.red {
+  /* Jelly style with soft gradient */
+  background: linear-gradient(145deg, #f3a3a3, #f28b8b); 
+  box-shadow: inset 0 8px 15px rgba(255,255,255,0.3), 0 5px 15px rgba(0,0,0,0.2);
 }
+
+.green {
+  background: linear-gradient(145deg, #a3f3b0, #7bf38b); 
+  box-shadow: inset 0 8px 15px rgba(255,255,255,0.3), 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.blue {
+  background: linear-gradient(145deg, #a3c4f3, #7baaf2); 
+  box-shadow: inset 0 8px 15px rgba(255,255,255,0.3), 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.yellow {
+  background: linear-gradient(145deg, #f3e3a3, #f2d87b); 
+  box-shadow: inset 0 8px 15px rgba(255,255,255,0.3), 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Optional: Add hover and click effects to all colors */
+.red:hover, .green:hover, .blue:hover, .yellow:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s;
+}
+
+.red:active, .green:active, .blue:active, .yellow:active {
+  transform: scale(0.9) rotate(-2deg);
+  box-shadow: inset 0 4px 10px rgba(0,0,0,0.2), 0 2px 8px rgba(0,0,0,0.1);
+}
+
 
 .pressed {
   box-shadow: 0 0 20px white;
   background-color: grey;
 }
+
+
+
+
+
+
+
+

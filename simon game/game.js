@@ -1,103 +1,112 @@
-//array for store random color pattern generated
-var randomColorPattern = [];
-
-//array for store color pattern entered by the user
-var userColorPattern = [];
-
-var level;
-
-//random color pattern generator
-
-var colors = ["green","red","yellow","blue"];
+let level = 0;
+let randomColorPattern = [];
+let userColorPattern = [];
+let colors = ["green", "red", "yellow", "blue"];
 
 
-for(let i=0;i<4;i++){
-    var randomNumber = Math.floor(Math.random()*4);
-    var selectedColor = colors[randomNumber];
-    randomColorPattern.push(selectedColor);
-}
+//function for create the next sequence of color pattern
+function nextSequence() {
+    userColorPattern = [];
+    level++;
+    $("h1").text("Level " + level);
+    randomColorPattern = [];
 
-
-function flash(){
-    let x = 0;
-
-    while(x<randomColorPattern.length){
-
-        let flashColor = randomColorPattern[x];
-        let randomPatternSound = new Audio("sounds/green.mp3");
-
-    setTimeout(function(){
-        $("#"+flashColor).addClass("pressed");
-        randomPatternSound.play();
-        setTimeout(function(){
-            $("#"+flashColor).removeClass("pressed");
-        },200)
-    },x*500);
-
-    x++;
+    for(let i=0; i<level; i++){
+        let randomColor = colors[Math.floor(Math.random() * colors.length)];
+        randomColorPattern.push(randomColor);
     }
 
-}
-
-//store user clicked color pattern in array and add flash effect
-function userClicks(){
-
-    let userPatternSound = new Audio("sounds/green.mp3");
-
-    $(".btn").on("click",function(){
-        let clickButtonId = $(this).attr("id");
-        userColorPattern.push(clickButtonId);
-
-        $("#"+clickButtonId).addClass("pressed");
-        
-        setTimeout(function(){
-            $("#"+clickButtonId).removeClass("pressed");
-        },200);
-
-        userPatternSound.play(); 
-    })
-
-
-}
-userClicks();
-
-
-
-
-
-
-
-
-
-
-
-//starting key press , sound and heading change as level
-var gameStartingSound = new Audio("sounds/yellow.mp3");
-
-$(document).on("keypress", function(){
-    
-    gameStartingSound.play();
-    $("h1").html("Level 1");
     setTimeout(function(){
-        flash();
-    },1200);
+        flashPattern();
+    },1000);
     
+}
+
+
+
+//function for flash the color pattern
+function flashPattern() {
+    randomColorPattern.forEach((color, index) => {
+        setTimeout(() => {
+            $("#" + color).fadeOut(100).fadeIn(100);
+            playSound(color);
+        }, index * 600);
+    });
+}
+
+
+
+
+//function for play sounds
+function playSound(){
+    let audio = new Audio("sounds/green.mp3");
+    audio.play();
+}
+
+
+
+
+//function for play sound animation and check answer with random pattern when user click colors
+
+$(".btn").on("click", function(){
+    let userChosenColor = $(this).attr("id");
+    userColorPattern.push(userChosenColor);
+    playSound();
+    animatePress(userChosenColor);
+
+    checkAnswer(userColorPattern.length - 1);
 });
 
 
 
-//check whether userColorPattern array and randomColorPattern arrays are equal
-function arraysEqual(arr1,arr2){
-    if(arr1.length !== arr2.length){
-        return false;
-    }
 
-    for(let i=0; i<arr1.length; i++){
-        if(arr1[i] !== arr2[i]){
-            return false;
-        }
+// function for check answer by compare 2 arrays
+function checkAnswer(currentIndex){
+    if(userColorPattern[currentIndex] !== randomColorPattern[currentIndex]){
+        setTimeout(function(){
+             var endSound = new Audio("sounds/wrong.mp3");
+             endSound.play();
+             $("h1").text("Game Over!!!!");
+        },500);
+       
+      
+        level = 0;
+        randomColorPattern = [];
+        userColorPattern = [];
+    } else if(userColorPattern.length === randomColorPattern.length){
+
+        setTimeout(function(){
+             var sound = new Audio("sounds/startingSound.mp3");
+            sound.play();
+        },500);
+
+        setTimeout(function(){
+            nextSequence();
+        }, 1000); // move to next level
     }
-    return true;
 }
+
+
+
+
+//function for animate the color press
+function animatePress(color){
+    $("#" + color).addClass("pressed");
+    setTimeout(() => $("#" + color).removeClass("pressed"), 200);
+}
+
+
+
+//key press for start the game
+$(document).one("keypress", function(){
+
+    var sound = new Audio("sounds/startingSound.mp3");
+    sound.play();
+
+    setTimeout(function(){
+        nextSequence();
+    },1000);
+    
+});
 
 
