@@ -39,7 +39,7 @@ function flashPattern() {
 
 //function for play sounds
 function playSound(){
-    let audio = new Audio("sounds/green.mp3");
+    let audio = new Audio("simon game/sounds/green.mp3");
     audio.play();
 }
 
@@ -64,7 +64,7 @@ $(".btn").on("click", function(){
 function checkAnswer(currentIndex){
     if(userColorPattern[currentIndex] !== randomColorPattern[currentIndex]){
         setTimeout(function(){
-             var endSound = new Audio("sounds/wrong.mp3");
+             var endSound = new Audio("simon game/sounds/wrong.mp3");
              endSound.play();
              $("h1").text("Game Over!!!!");
         },500);
@@ -76,7 +76,7 @@ function checkAnswer(currentIndex){
     } else if(userColorPattern.length === randomColorPattern.length){
 
         setTimeout(function(){
-             var sound = new Audio("sounds/startingSound.mp3");
+             var sound = new Audio("simon game/sounds/startingSound.mp3");
             sound.play();
         },500);
 
@@ -100,7 +100,7 @@ function animatePress(color){
 //key press for start the game
 $(document).one("keypress", function(){
 
-    var sound = new Audio("sounds/startingSound.mp3");
+    var sound = new Audio("simon game/sounds/startingSound.mp3");
     sound.play();
 
     setTimeout(function(){
